@@ -1,49 +1,98 @@
 
 body {
     height: 100vh;
-    margin: 0;
+    margin: 100px;
     font-family: Helvetica;
     display: grid;
     /* mobile first - single column */
-    grid-template-columns: 200px 400px;
-    grid-template-rows: 100px 200px 300px auto;
+    grid-template-columns: 200px 450px 200px;
+    grid-template-rows: 100px 50px 300px 50px 400px auto;
     grid-template-areas: 
-    "hdr hdr"
-    "side content"
-    "player player"
-    "ftr ftr"
+    "hdr hdr hdr"
+    "blank dealerstays dealertotal"
+    "buttons dealerhand dealerhand"
+    "playertotal winlose winlose"
+    "playerhand playerhand playerhand"
+    "ftr ftr ftr"
   }
   
-  header {
+  #title {
     grid-area: hdr;
-    background-color: #ff9e7a;
+    background-color: rgb(129, 155, 59);
   }
 
 
   
   footer {
     grid-area: ftr;
-    background-color: #b1fcc8;
+    background-color: rgb(37, 95, 32);
+
   }
   
-  aside {
-    grid-area: side;
-    background-color: #ffe07a;
+  #buttons {
+    grid-area: buttons;
+    background-color: rgb(122, 131, 45);
   }
 
-  p {
-    grid-area: player;
-    background-color: #444dce;
+  #playertotal {
+    grid-area: playertotal;
+    background-color: rgb(45, 131, 105);
   }
-  
-  main {
-    grid-area: content;
-    background-color: #bf9df7;
+  #dealerhand {
+    grid-area: dealerhand;
+    background-color: rgb(45, 97, 131);
   }
-  
-  header, footer, aside, main {
+  #dealertotal {
+    grid-area: dealertotal;
+    background-color: rgb(78, 129, 73);
+    text-align: right;
+  }
+  #blank {
+    grid-area: blank;
+    background-color: rgb(126, 204, 119);
+  }
+  header, footer, p, aside, main {
+    display: flex;
+    justify-content: left;
+    align-items: top;
+    margin-left: 20px;
+    margin-top: 20px;
+
+  }
+    main {
+    display: flex;
+    justify-content: right;
+    align-items: top;
+  }
+
+  #playerhand {
+    grid-area: playerhand;
+    background-color: rgb(85, 118, 141);
+  }
+
+  #winlose {
+    grid-area: winlose;
+    background-color: rgb(45, 122, 68);
+  }
+
+  #dealerstays {
+    grid-area: dealerstays;
+    background-color: rgb(107, 156, 85);
+  }
+div {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+    margin-right: 10px;
+
+}
   
+button {
+    margin-right: 10px;
+    align-items: left;
+}
+  
+body {
+    background-color: rgb(52, 131, 45);
+}
+
