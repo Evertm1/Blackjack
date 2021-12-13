@@ -1,12 +1,14 @@
 
 body {
     height: 100vh;
-    margin: 100px;
+    margin: 20px;
+    background-color: rgb(52, 131, 45);
     font-family: Helvetica;
     display: grid;
+    gap: 5px;
     /* mobile first - single column */
     grid-template-columns: 200px 450px 200px;
-    grid-template-rows: 100px 50px 300px 50px 400px auto;
+    grid-template-rows: 70px 40px 250px 50px 300px 100px;
     grid-template-areas: 
     "hdr hdr hdr"
     "blank dealerstays dealertotal"
@@ -16,74 +18,64 @@ body {
     "ftr ftr ftr"
   }
   
-  #title {
+#title {
     grid-area: hdr;
-    background-color: rgb(129, 155, 59);
+    background-color:rgb(52, 131, 45);
+    font-size: 60px;
+    margin: 0px;
   }
 
 
   
-  footer {
+footer {
     grid-area: ftr;
-    background-color: rgb(37, 95, 32);
+    background-color: rgb(52, 131, 45);
 
   }
   
-  #buttons {
-    grid-area: buttons;
-    background-color: rgb(122, 131, 45);
-  }
-
-  #playertotal {
+#playertotal {
     grid-area: playertotal;
-    background-color: rgb(45, 131, 105);
+    background-color: rgb(45, 122, 68);
+    font-size: 25px;
   }
-  #dealerhand {
+#dealerhand {
     grid-area: dealerhand;
-    background-color: rgb(45, 97, 131);
+    background-color: rgb(45, 122, 68);
   }
-  #dealertotal {
+#dealertotal {
     grid-area: dealertotal;
-    background-color: rgb(78, 129, 73);
-    text-align: right;
+    background-color: rgb(45, 122, 68);
+    text-align: left;
+    font-size: 25px;
   }
-  #blank {
+#blank {
     grid-area: blank;
-    background-color: rgb(126, 204, 119);
-  }
-  header, footer, p, aside, main {
-    display: flex;
-    justify-content: left;
-    align-items: top;
-    margin-left: 20px;
-    margin-top: 20px;
-
-  }
-    main {
-    display: flex;
-    justify-content: right;
-    align-items: top;
-  }
-
-  #playerhand {
-    grid-area: playerhand;
-    background-color: rgb(85, 118, 141);
-  }
-
-  #winlose {
-    grid-area: winlose;
     background-color: rgb(45, 122, 68);
   }
 
-  #dealerstays {
-    grid-area: dealerstays;
-    background-color: rgb(107, 156, 85);
+#playerhand {
+    grid-area: playerhand;
+    background-color: rgb(45, 122, 68);
   }
-div {
+
+#winlose {
+    grid-area: winlose;
+    background-color: rgb(45, 122, 68);
+    text-align: center;
+  }
+
+#dealerstays {
+    grid-area: dealerstays;
+    background-color: rgb(45, 122, 68);
+    text-align: center;
+  }
+#buttons {
+    grid-area: buttons;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 10px;
+    background-color: rgb(45, 122, 68);
 
 }
   
@@ -92,7 +84,3 @@ button {
     align-items: left;
 }
   
-body {
-    background-color: rgb(52, 131, 45);
-}
-
