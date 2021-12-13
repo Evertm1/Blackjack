@@ -7,8 +7,8 @@ body {
     display: grid;
     gap: 5px;
     /* mobile first - single column */
-    grid-template-columns: 200px 450px 200px;
-    grid-template-rows: 70px 40px 250px 50px 300px 100px;
+    grid-template-columns: 200px 400px 200px;
+    grid-template-rows: 70px 40px 250px 50px 300px 150px;
     grid-template-areas: 
     "hdr hdr hdr"
     "blank dealerstays dealertotal"
