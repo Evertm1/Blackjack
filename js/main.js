@@ -8,7 +8,8 @@ const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', '
 
 // Build a 'master' deck of 'card' objects used to create shuffled decks (from jim_clark)
 
-//const masterDeck = buildMasterDeck();
+const masterDeck = buildMasterDeck();
+let tempDeck = [...masterDeck];
 //^ will need
 //
 //renderDeckInContainer(masterDeck, document.getElementById('master-deck-container'));
@@ -29,7 +30,7 @@ dealerHandEl = document.querySelector('#dealerhand');
 dealerTotalEl = document.querySelector('#dealertotal');
 winLoseEl = document.querySelector('#winlose');
 dealerStaysEl = document.querySelector('#dealerstays');
-const shuffledContainer = document.getElementById('shuffled-deck-container'); // (from jim_clark)
+//const shuffledContainer = document.getElementById('shuffled-deck-container'); // (from jim_clark)
 
 // cached button elements
 const hitMeBtn = document.querySelector('#hitme').addEventListener("click", hitMe);
@@ -42,17 +43,28 @@ init();
 
 function init() {
     //initialize master deck
-    //shuffle deck
-    //add two cards to playerHand
-    //add two cards to dealerHand
+    buildMasterDeck();
+    //shuffle deck - reassign tempDeck(which is a clone of the master deck) to shuffled deck
+    let tempDeck = getNewShuffledDeck();
+    console.log(tempDeck);
+    //add first two cards of tempDeck to playerHand
+    playerHand.push(tempDeck[0], tempDeck[1]);
+    console.log(playerHand);
+    //add next two cards of tempDeck to dealerHand
+    dealerHand.push(tempDeck[2], tempDeck[3]);
+    console.log(dealerHand);
     //calculate playerTotal
+    let playerTotal =  playerHand[0].value + playerHand[1].value;
+    console.log(playerTotal);
     //calculate dealerTotal
+    let dealerTotal = dealerHand[0].value + dealerHand[1].value;
+    console.log(dealerTotal);
     //deactivate playAgainBtn
 }
 
 // ---------------functions for card deck (from jim_clark)
 //----- functions ----- 
-/*
+///*
 function getNewShuffledDeck() {
     // Create a copy of the masterDeck (leave masterDeck untouched!)
     const tempDeck = [...masterDeck];
@@ -66,13 +78,13 @@ function getNewShuffledDeck() {
     return newShuffledDeck;
   }
   
-  function renderNewShuffledDeck() {
+function renderNewShuffledDeck() {
     // Create a copy of the masterDeck (leave masterDeck untouched!)
     shuffledDeck = getNewShuffledDeck();
     renderDeckInContainer(shuffledDeck, shuffledContainer);
   }
   
-  function renderDeckInContainer(deck, container) {
+function renderDeckInContainer(deck, container) {
     container.innerHTML = '';
     // Let's build the cards as a string of HTML
     let cardsHtml = '';
@@ -86,7 +98,7 @@ function getNewShuffledDeck() {
     container.innerHTML = cardsHtml;
   }
   
-  function buildMasterDeck() {
+function buildMasterDeck() {
     const deck = [];
     // Use nested forEach to generate card objects
     suits.forEach(function(suit) {
@@ -105,9 +117,12 @@ function getNewShuffledDeck() {
   renderNewShuffledDeck();
 //------------------end of copied functions 
 
-*/
+//*/
 
+//A function that adds two cards to player hand, called upon initialization
+function dealPlayerHand() {
 
+}
 
 
 //define button functions
