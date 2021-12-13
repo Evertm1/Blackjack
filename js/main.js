@@ -54,12 +54,14 @@ function init() {
     dealerHand.push(tempDeck[2], tempDeck[3]);
     console.log(dealerHand);
     //calculate playerTotal
-    let playerTotal =  playerHand[0].value + playerHand[1].value;
+    playerTotal =  playerHand[0].value + playerHand[1].value;
     console.log(playerTotal);
     //calculate dealerTotal
-    let dealerTotal = dealerHand[0].value + dealerHand[1].value;
+    dealerTotal = dealerHand[0].value + dealerHand[1].value;
     console.log(dealerTotal);
     //deactivate playAgainBtn
+    //render starting hands and totals
+    render();
 }
 
 // ---------------functions for card deck (from jim_clark)
@@ -150,12 +152,6 @@ function playAgain() {
     // init()
 };
 
-function render () {
-    // update view with current values for: playerHand, dealerHand, playerTotal, dealerTotal
-    // if winner != null, update view with end of game message, activate playAgainBtn, deactivate hitMeBtn and stayBtn
-};
-
-
 function dealerTurn () {
     //while dealer total <17 add card to dealerHand
     //calculate dealerTotal
@@ -164,4 +160,12 @@ function dealerTurn () {
         // IF all aces values are reduced to 1, AND  dealer total > 21, update winner to 'player'
 };
 
+function render () {
+    // update view with current values for: playerHand, dealerHand, playerTotal, dealerTotal
+    playerTotalEl.textContent = "Player Total: " + playerTotal;
+    dealerTotalEl.textContent = "Dealer Total: " + dealerTotal;
+    renderDeckInContainer(playerHand, playerHandEl);
+    renderDeckInContainer(dealerHand, dealerHandEl);
+    // if winner != null, update view with end of game message, activate playAgainBtn, deactivate hitMeBtn and stayBtn
+};
 
