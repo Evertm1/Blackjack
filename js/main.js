@@ -18,7 +18,7 @@ let tempDeck = [...masterDeck];
 
 let playerHand;
 let dealerHand;
-let winner = null;
+let winner;
 let playerTotal;
 let dealerTotal;
 let shuffledDeck;
@@ -52,6 +52,7 @@ function init() {
     //add first two cards of tempDeck to playerHand
     playerHand = [];
     dealerHand = [];
+    winner = null;
     playerHand.push(tempDeck[0], tempDeck[1]);
     console.log(playerHand);
     //add next two cards of tempDeck to dealerHand
@@ -164,7 +165,7 @@ function stay() {
         winner = 'player'
     } else if (winner === null && playerTotal === dealerTotal) {
         winner = 'tie'
-    } else {
+    } else if (winner === null && playerTotal < dealerTotal) {
         winner = 'computer'
     }
     // call render()
@@ -179,7 +180,7 @@ function hitMe() {
     playerTotal = playerHandCalculator()
     //IF player total > 21 and no aces are present, update winner variable to 'computer'
     if (playerTotal > 21) {
-        winner = "computer"
+        winner = 'computer'
     };
     //ELSE if playerTotal > and at least one ace is present, begin reducing ace value to 1 until playerTotal < 21
     //if winner value is null, call dealerTurn()
@@ -208,9 +209,9 @@ function dealerTurn () {
     //calculate dealerTotal
     dealerTotal = dealerHandCalculator();
     //IF dealerTotal > 21 AND no aces are present in dealer hand, update winner to 'player'
-    if (dealerTotal > 21){
-        winner = "player"
-    }
+    if (dealerTotal > 21) {
+        winner = 'player'
+    };
     //ELSE IF dealer total >21 AND at least one ace is present, begin reducing ace values to 1 until toal is <21, then stop reducing ace values
         // IF all aces values are reduced to 1, AND  dealer total > 21, update winner to 'player'
     render ();
@@ -227,6 +228,10 @@ function render () {
         winLoseEl.textContent = "YOU WIN!"
     } else if (winner === 'computer') {
         winLoseEl.textContent = "YOU LOSE!"
+    } else if (winner === 'tie') {
+        winLoseEl.textContent = "It's a draw"
+    } else {
+        winLoseEl.textContent = " "
     };
 };
 
