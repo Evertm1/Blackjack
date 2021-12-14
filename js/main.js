@@ -120,7 +120,10 @@ function buildMasterDeck() {
 //------------------end of copied functions 
 
 //*/
-
+// function that calculates cards on the board- will be used as an index
+function getCardsOnBoard() {
+    return playerHand.length + dealerHand.length
+}
 //A function that adds two cards to player hand, called upon initialization
 function dealPlayerHand() {
 
@@ -139,6 +142,7 @@ function stay() {
 function hitMe() {
     console.log('hit me button test')
     //add card to player hand
+    playerHand.push(tempDeck[getCardsOnBoard()]);
     //calculate playerTotal
     //IF player total > 21 and no aces are present, update winner variable to 'computer'
     //ELSE if playerTotal > and at least one ace is present, begin reducing ace value to 1 until playerTotal < 21
