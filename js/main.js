@@ -24,6 +24,7 @@ let dealerTotal;
 let shuffledDeck;
 
 
+
 // cached elements
 playerHandEl = document.querySelector('#playerhand');
 playerTotalEl = document.querySelector('#playertotal');
@@ -47,7 +48,7 @@ function init() {
     //initialize master deck
     buildMasterDeck();
     //shuffle deck - reassign tempDeck(which is a clone of the master deck) to shuffled deck
-    let tempDeck = getNewShuffledDeck();
+    tempDeck = getNewShuffledDeck();
     console.log(tempDeck);
     //add first two cards of tempDeck to playerHand
     playerHand = [];
