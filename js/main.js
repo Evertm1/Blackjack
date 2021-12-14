@@ -150,7 +150,9 @@ function dealerHandCalculator() {
     return total;
 };
 
-
+// helper function that checks arrays for aces
+const aceCheck = card => card.value === 11;
+//playerHand.some(aceCheck) will = true if an ace is present in player hand
   
 
 

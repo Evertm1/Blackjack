@@ -8,7 +8,7 @@ body {
     gap: 5px;
     /* mobile first - single column */
     grid-template-columns: 200px 400px 200px;
-    grid-template-rows: 70px 40px 250px 50px 300px 150px;
+    grid-template-rows: 70px 30px 250px 30px 300px 150px;
     grid-template-areas: 
     "hdr hdr hdr"
     "blank dealerstays dealertotal"
@@ -35,8 +35,9 @@ footer {
   
 #playertotal {
     grid-area: playertotal;
-    background-color: rgb(45, 122, 68);
+    background-color: rgb(52, 131, 45);
     font-size: 25px;
+
   }
 #dealerhand {
     grid-area: dealerhand;
@@ -44,7 +45,7 @@ footer {
   }
 #dealertotal {
     grid-area: dealertotal;
-    background-color: rgb(45, 122, 68);
+    background-color: rgb(52, 131, 45);
     text-align: left;
     font-size: 25px;
   }
@@ -60,13 +61,14 @@ footer {
 
 #winlose {
     grid-area: winlose;
-    background-color: rgb(45, 122, 68);
+    background-color: rgb(52, 131, 45);
     text-align: center;
+    font-size: 45px;
   }
 
 #dealerstays {
     grid-area: dealerstays;
-    background-color: rgb(45, 122, 68);
+    background-color: rgb(52, 131, 45);
     text-align: center;
   }
 #buttons {
@@ -75,7 +77,7 @@ footer {
     justify-content: center;
     align-items: center;
     margin-right: 10px;
-    background-color: rgb(45, 122, 68);
+    background-color: rgb(52, 131, 45);
 
 }
   
