@@ -6,6 +6,7 @@ body {
     font-family: Helvetica;
     display: grid;
     gap: 5px;
+    
     /* mobile first - single column */
     grid-template-columns: 200px 400px 200px;
     grid-template-rows: 70px 30px 250px 30px 300px 150px;
@@ -23,6 +24,7 @@ body {
     background-color:rgb(52, 131, 45);
     font-size: 60px;
     margin: 0px;
+    font-family: 'Prompt', sans-serif;
   }
 
 
@@ -37,17 +39,23 @@ footer {
     grid-area: playertotal;
     background-color: rgb(52, 131, 45);
     font-size: 25px;
+    color: rgb(198, 216, 196);
+
+
 
   }
 #dealerhand {
     grid-area: dealerhand;
     background-color: rgb(45, 122, 68);
+    border-radius: 15px;
+    
   }
 #dealertotal {
     grid-area: dealertotal;
     background-color: rgb(52, 131, 45);
     text-align: left;
     font-size: 25px;
+    color: rgb(198, 216, 196);
   }
 #blank {
     grid-area: blank;
@@ -57,13 +65,14 @@ footer {
 #playerhand {
     grid-area: playerhand;
     background-color: rgb(45, 122, 68);
+    border-radius: 15px;
   }
 
 #winlose {
     grid-area: winlose;
     background-color: rgb(52, 131, 45);
     text-align: center;
-    font-size: 45px;
+    font-size: 35px;
   }
 
 #dealerstays {
@@ -73,16 +82,43 @@ footer {
   }
 #buttons {
     grid-area: buttons;
-    display: flex;
+    display: block;
     justify-content: center;
+    padding: 50px;
+    vertical-align: top/middle/bottom;
     align-items: center;
     margin-right: 10px;
     background-color: rgb(52, 131, 45);
 
 }
+.blink_me {
+    animation: blinker .4s linear infinite;
+  }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
   
 button {
-    margin-right: 10px;
-    align-items: left;
+    margin: 0px 0px 20px 0px;
+    display: block;
+    background-color: rgb(20, 88, 40);
+    border: none;
+    color: white;
+    padding: 10px;
+    width: 100px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 5px;
 };
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
 

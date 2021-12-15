@@ -50,12 +50,15 @@ function init() {
     //shuffle deck - reassign tempDeck(which is a clone of the master deck) to shuffled deck
     tempDeck = getNewShuffledDeck();
     console.log(tempDeck);
+    //enables buttons
+    enableBtn();
     //add first two cards of tempDeck to playerHand
     playerHand = [];
     dealerHand = [];
     winner = null;
     playerHand.push(tempDeck[0], tempDeck[1]);
     console.log(playerHand);
+
     //add next two cards of tempDeck to dealerHand
     dealerHand.push(tempDeck[2], tempDeck[3]);
     console.log(dealerHand);
@@ -151,9 +154,28 @@ function dealerHandCalculator() {
 };
 
 // helper function that checks arrays for aces
-const aceCheck = card => card.value === 11;
-//playerHand.some(aceCheck) will = true if an ace is present in player hand
+//const aceCheck = card => card.value === 11;
+//^playerHand.some(aceCheck) will = true if an ace is present in player hand
   
+
+// helperfunction that begins reducing ace values to 1 until hand total is less than 21
+
+
+
+
+
+    
+// Function that disables buttons
+function disableBtn(){ 
+    document.getElementById('hitme').disabled = true;
+    document.getElementById('stay').disabled = true; 
+};
+//Function that enables buttons (upon initialization)
+function enableBtn(){
+    document.getElementById('hitme').removeAttribute('disabled');
+    document.getElementById('stay').removeAttribute('disabled'); 
+
+};
 
 
 //define button functions
@@ -180,9 +202,25 @@ function hitMe() {
     //add card to player hand
     playerHand.push(tempDeck[getCardsOnBoard()]);
     //calculate playerTotal
-    playerTotal = playerHandCalculator()
+    playerTotal = playerHandCalculator();
     //IF player total > 21 and no aces are present, update winner variable to 'computer'
-    if (playerTotal > 21) {
+    while (playerTotal > 21 && playerHand.some(card => card.value === 11)){
+        //console.log('reducing aces')
+        playerHand.forEach(function(card){
+            if (card.value === 11){
+                card.value = 1;
+                playerTotal = playerHandCalculator();
+                console.log(playerTotal, card.value);
+            }
+ //           if (playerTotal <= 21) return;
+        })
+        console.log(playerTotal);
+//        if (playerTotal > 21){
+        //     return
+        // }
+    };
+    
+    if (playerTotal > 21){
         winner = 'computer'
     };
     //ELSE if playerTotal > and at least one ace is present, begin reducing ace value to 1 until playerTotal < 21
@@ -228,11 +266,16 @@ function render () {
     renderDeckInContainer(dealerHand, dealerHandEl);
     // if winner != null, update view with end of game message, activate playAgainBtn, deactivate hitMeBtn and stayBtn
     if (winner === 'player') {
-        winLoseEl.textContent = "YOU WIN!"
+        winLoseEl.textContent = "YOU WIN!";
+        disableBtn();
+ 
     } else if (winner === 'computer') {
-        winLoseEl.textContent = "YOU LOSE!"
+        winLoseEl.textContent = "YOU LOSE";
+        disableBtn();
+
     } else if (winner === 'tie') {
         winLoseEl.textContent = "It's a draw"
+        disableBtn();
     } else {
         winLoseEl.textContent = " "
     };
