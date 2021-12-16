@@ -1,20 +1,13 @@
-// script testing
-console.log('js is connected');
-
 // define constants
-//deck (from jim_clark)
 const suits = ['s', 'c', 'd', 'h'];
 const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
 
-// Build a 'master' deck of 'card' objects used to create shuffled decks (from jim_clark)
+// Build a 'master' deck of 'card' objects used to create shuffled decks
 
 const masterDeck = buildMasterDeck();
 let tempDeck = [...masterDeck];
-//^ will need
-//
-//renderDeckInContainer(masterDeck, document.getElementById('master-deck-container'));
-//^ probably will not need
-// define state variables
+
+// Define state variables
 
 let playerHand;
 let dealerHand;
@@ -26,7 +19,7 @@ let money = 1000
 
 
 
-// cached elements
+// Cached elements
 playerHandEl = document.querySelector('#playerhand');
 playerTotalEl = document.querySelector('#playertotal');
 dealerHandEl = document.querySelector('#dealerhand');
@@ -36,58 +29,57 @@ dealerStaysEl = document.querySelector('#dealerstays');
 moneyBlinkerEl = document.querySelector('#moneyblinker');
 moneyTotalEl = document.querySelector('#moneytotal');
 
-//const shuffledContainer = document.getElementById('shuffled-deck-container'); // (from jim_clark)
-
-// cached button elements
+// Cached button elements with event listeners
 const hitMeBtn = document.querySelector('#hitme').addEventListener("click", hitMe);
 const stayBtn = document.querySelector('#stay').addEventListener("click", stay);
 const playAgainBtn = document.querySelector('#playagain').addEventListener("click", playAgain);
 
-
-// initialize page upon loading
+//Initialize page upon loading
 init();
 
 function init() {
-    //prior tot building master deck, recalculate totals to 0
-    //in order to prevent ace reduction if it occured in previous hand
-    playerTotal = 0;
-    dealerTotal = 0;
-    //initialize master deck
+
+    //Initialize masteDeck
     buildMasterDeck();
-    //shuffle deck - reassign tempDeck(which is a clone of the master deck) to shuffled deck
+    //Shuffle deck - reassign tempDeck to shuffled deck
     tempDeck = getNewShuffledDeck();
-    console.log(tempDeck);
-    //enables buttons
+    //Ensure all ace value back to 11 if they were changed to 1 in previous hand
+    tempDeck.forEach(function(card){
+        if (card.value === 1){
+            card.value = 11;
+        }
+    });
+    //Enables 'hit me' and 'stay' buttons. Disable 'play again' button
     startBtns();
     
-    //add first two cards of tempDeck to playerHand
+    //Set initial values for hands and winner
     playerHand = [];
     dealerHand = [];
-
-    //bug fix attempt:
-    if (playerHand.some(card => card.value === 1)){
-        card.value === 11
-    };
-    if (dealerHand.some(card => card.value === 1)){
-        card.value === 11
-    };
-
-
-
     winner = null;
+
+    //Add first two cards of tempDeck to playerHand
     playerHand.push(tempDeck[0], tempDeck[1]);
     console.log(playerHand);
 
-    //add next two cards of tempDeck to dealerHand
+    //Add next two cards of tempDeck to dealerHand
     dealerHand.push(tempDeck[2], tempDeck[3]);
     console.log(dealerHand);
-    //calculate playerTotal
+
+    //Calculate playerTotal
     playerTotal =  playerHandCalculator();
-    console.log(playerTotal);
-    //calculate dealerTotal
+    // In case two aces are dealt to player, effectively reduce one ace value to 1
+    if (playerTotal === 22){
+        playerTotal = 12
+    };
+
+    //Calculate dealerTotal
     dealerTotal = dealerHandCalculator();
-    //deactivate playAgainBtn
-    //render starting hands and totals
+    // In case two aces are dealt to dealer, effectively reduce one ace value to 1
+    if (dealerTotal === 22){
+        dealerTotal = 12
+    };
+
+    //In case either or both hands contain blackjack, end the game
     if (playerTotal === 21 && dealerTotal != 21){
         winner = 'player(blackjack)';
     } else if (playerTotal != 21 && dealerTotal === 21){
@@ -99,7 +91,6 @@ function init() {
 }
 
 // ---------------functions for card deck (from jim_clark)
-//----- functions ----- 
 ///*
 function getNewShuffledDeck() {
     // Create a copy of the masterDeck (leave masterDeck untouched!)
@@ -113,13 +104,8 @@ function getNewShuffledDeck() {
     }
     return newShuffledDeck;
   }
-/*  don't think I need code below....
-function renderNewShuffledDeck() {
-    // Create a copy of the masterDeck (leave masterDeck untouched!)
-    shuffledDeck = getNewShuffledDeck();
-    renderDeckInContainer(shuffledDeck, shuffledContainer);
-  }
- */  
+
+// Renders cards on page 
 function renderDeckInContainer(deck, container) {
     container.innerHTML = '';
     // Let's build the cards as a string of HTML
@@ -150,16 +136,16 @@ function buildMasterDeck() {
     return deck;
   }
   
- // renderNewShuffledDeck();
-//------------------end of copied functions 
+//------------------end of card deck functions
 
-//*/
-// function that calculates cards on the board- will be used as an index
+// -------- helper functions to facilitate game -----
+
+// Function that calculates cards on the board- will be used as an index to deal cards
 function getCardsOnBoard() {
     return playerHand.length + dealerHand.length
 };
 
-// Function that loops over player hand array and calculates total based on value in object
+// Function that loops over player hand array and calculates total based on value in card object
 
 function playerHandCalculator() {
     total = 0;
@@ -178,39 +164,27 @@ function dealerHandCalculator() {
     }
     return total;
 };
-
-// helper function that checks arrays for aces
-//const aceCheck = card => card.value === 11;
-//^playerHand.some(aceCheck) will = true if an ace is present in player hand
-  
-
-// helperfunction that begins reducing ace values to 1 until hand total is less than 21
-
-
-
-
-
     
-// Function that disables buttons
+// Function that disables 'hit me' and 'stay' buttons, enables 'play again' button
 function endBtns(){ 
     document.getElementById('hitme').disabled = true;
     document.getElementById('stay').disabled = true;
     document.getElementById('playagain').removeAttribute('disabled'); 
 };
-//Function that enables buttons (upon initialization)
+//Function that enables 'hit me' and 'stay' buttons, enables 'play again' button
 function startBtns(){
     document.getElementById('hitme').removeAttribute('disabled');
     document.getElementById('stay').removeAttribute('disabled'); 
     document.getElementById('playagain').disabled = true
 };
-//function that adds $100 to toal moneyEl upon winning a hand
+//function that adds $100 to toal moneyEl upon player win, blinks '+100"
 function moneyAdd(){
     money = money + 100;
     moneyTotalEl.textContent = "Chips: $"+money;
     moneyBlinkerEl.textContent = "+$100";
     moneyBlinkerEl.style.color = "rgb(166, 255, 158)"
 };
-//function that subtracts $100 upon losing a hand
+//function that subtracts $100 upon computer win, blinks '-100'
 function moneySubtract(){
     money = money -100;
     moneyTotalEl.textContent = "Chips: $"+money;
@@ -219,7 +193,8 @@ function moneySubtract(){
 };
 
 
-//define button functions
+//------- Button functions ----------
+//Function that calls dealer turn upon pressing 'stay', updates winner if applicable
 function stay() {
     console.log('stay button test')
     // call dealerTurn()
@@ -238,10 +213,12 @@ function stay() {
     render();
 };
 
+//Function that adds card to player's hand, updates winner if applicable
 function hitMe() {
     console.log('hit me button test')
     //add card to player hand
     playerHand.push(tempDeck[getCardsOnBoard()]);
+    //bug 
     //calculate playerTotal
     playerTotal = playerHandCalculator();
     //IF player total > 21 and no aces are present, update winner variable to 'computer'
@@ -253,34 +230,24 @@ function hitMe() {
                 playerTotal = playerHandCalculator();
                 console.log(playerTotal, card.value);
             }
- //           if (playerTotal <= 21) return;
-        })
-        console.log(playerTotal);
-//        if (playerTotal > 21){
-        //     return
-        // }
+            if (playerTotal <= 21) return;
+        });
+    
     };
     
     if (playerTotal > 21){
         winner = 'computer- player busts'
     };
-    //ELSE if playerTotal > and at least one ace is present, begin reducing ace value to 1 until playerTotal < 21
-    //if winner value is null, call dealerTurn()
-    //UPDATE: dealer turn should not activate until player stays- line below can be removed
-    //if (winner === null) {
-    //    dealerTurn();
-    //}
-
-    //check if dealer busts- update winner variable to 'player'
-    // call render()
     render();
-};
+    };
 
+
+//Function that re-starts game by calling init()
 function playAgain() {
-    console.log('play again button test');
     init();
-};
+    };
 
+//Function that adds cards to dealer hand if applicable, updates winner if applicable
 function dealerTurn () {
     console.log('dealer turn');
     //while dealer total <17 add card to dealerHand
@@ -290,7 +257,7 @@ function dealerTurn () {
     };
     //calculate dealerTotal
     dealerTotal = dealerHandCalculator();
-
+    //If aces are present, their value will be reduced until dealerTotal < 21
     while (dealerTotal > 21 && dealerHand.some(card => card.value === 11)){
     
         dealerHand.forEach(function(card){
@@ -299,7 +266,7 @@ function dealerTurn () {
                 dealerTotal = dealerHandCalculator();
                 console.log(dealerTotal, card.value);
             }
- 
+            if (playerTotal <= 21) return;
         });
         console.log(dealerTotal);
     //IF dealerTotal > 21 update winner to 'player' after reducing ace values 
@@ -308,11 +275,10 @@ function dealerTurn () {
     if (dealerTotal > 21) {
         winner = 'player- dealer busts'
     };
-    //ELSE IF dealer total >21 AND at least one ace is present, begin reducing ace values to 1 until toal is <21, then stop reducing ace values
-        // IF all aces values are reduced to 1, AND  dealer total > 21, update winner to 'player'
     render ();
 };
 
+// Render function updates the view
 function render () {
     // update view with current values for: playerHand, dealerHand, playerTotal, dealerTotal
     playerTotalEl.textContent = "Player Hand: " + playerTotal;
@@ -321,8 +287,6 @@ function render () {
     moneyBlinkerEl.textContent = ""
     renderDeckInContainer(playerHand, playerHandEl);
     renderDeckInContainer(dealerHand, dealerHandEl);
-    //testing if this fixes bug
-
 
     // if winner != null, update view with end of game message, activate playAgainBtn, deactivate hitMeBtn and stayBtn
     if (winner === 'player') {
