@@ -22,6 +22,7 @@ let winner;
 let playerTotal;
 let dealerTotal;
 let shuffledDeck;
+let money = 1000
 
 
 
@@ -32,6 +33,8 @@ dealerHandEl = document.querySelector('#dealerhand');
 dealerTotalEl = document.querySelector('#dealertotal');
 winLoseEl = document.querySelector('#winlose');
 dealerStaysEl = document.querySelector('#dealerstays');
+moneyBlinkerEl = document.querySelector('#moneyblinker');
+moneyTotalEl = document.querySelector('#moneytotal');
 
 //const shuffledContainer = document.getElementById('shuffled-deck-container'); // (from jim_clark)
 
@@ -184,6 +187,20 @@ function startBtns(){
     document.getElementById('stay').removeAttribute('disabled'); 
     document.getElementById('playagain').disabled = true
 };
+//function that adds $100 to toal moneyEl upon winning a hand
+function moneyAdd(){
+    money = money + 100;
+    moneyTotalEl.textContent = "Chip Value: $"+money;
+    moneyBlinkerEl.textContent = "+$100";
+    moneyBlinkerEl.style.color = "rgb(166, 255, 158)"
+};
+//function that subtracts $100 upon losing a hand
+function moneySubtract(){
+    money = money -100;
+    moneyTotalEl.textContent = "Chip Value: $"+money;
+    moneyBlinkerEl.textContent = "-$100";
+    moneyBlinkerEl.style.color = "rgb(119, 13, 13)";
+};
 
 
 //define button functions
@@ -282,18 +299,22 @@ function dealerTurn () {
 
 function render () {
     // update view with current values for: playerHand, dealerHand, playerTotal, dealerTotal
-    playerTotalEl.textContent = "Player Total: " + playerTotal;
-    dealerTotalEl.textContent = "Dealer Total: " + dealerTotal;
+    playerTotalEl.textContent = "Player Hand: " + playerTotal;
+    dealerTotalEl.textContent = "Dealer Hand: " + dealerTotal;
+    moneyTotalEl.textContent = "Chip Value: $"+money;
+    moneyBlinkerEl.textContent = ""
     renderDeckInContainer(playerHand, playerHandEl);
     renderDeckInContainer(dealerHand, dealerHandEl);
     // if winner != null, update view with end of game message, activate playAgainBtn, deactivate hitMeBtn and stayBtn
     if (winner === 'player') {
         winLoseEl.textContent = "You Win!";
         endBtns();
+        moneyAdd();
  
     } else if (winner === 'computer') {
         winLoseEl.textContent = "Dealer Wins!";
         endBtns();
+        moneySubtract();
 
     } else if (winner === 'tie') {
         winLoseEl.textContent = "It's a Draw";
@@ -301,15 +322,19 @@ function render () {
     } else if (winner === 'player(blackjack)') {
         winLoseEl.textContent = "You Have Blackjack!";
         endBtns();
+        moneyAdd();
     } else if (winner === 'computer(blackjack)'){
         winLoseEl.textContent = "Dealer has Blackjack!";
         endBtns();
+        moneySubtract();
     } else if (winner === 'player- dealer busts'){
         winLoseEl.textContent = "Dealer Busts - You Win!";
         endBtns();
+        moneyAdd()
     } else if (winner === 'computer- player busts'){
         winLoseEl.textContent = "You're Busted - Dealer Wins!";
         endBtns();
+        moneySubtract();
     } else {
         winLoseEl.textContent = " "
     };
