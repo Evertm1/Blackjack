@@ -75,7 +75,7 @@ function init() {
     if (playerTotal === 21 && dealerTotal != 21){
         winner = 'player(blackjack)';
     } else if (playerTotal != 21 && dealerTotal === 21){
-        winner = 'computer(blackjack)';
+        winner = 'computer';
     } else if (playerTotal === 21 && dealerTotal === 21){
         winner = 'tie';
     };
@@ -190,14 +190,14 @@ function startBtns(){
 //function that adds $100 to toal moneyEl upon winning a hand
 function moneyAdd(){
     money = money + 100;
-    moneyTotalEl.textContent = "Chip Value: $"+money;
+    moneyTotalEl.textContent = "Chips: $"+money;
     moneyBlinkerEl.textContent = "+$100";
     moneyBlinkerEl.style.color = "rgb(166, 255, 158)"
 };
 //function that subtracts $100 upon losing a hand
 function moneySubtract(){
     money = money -100;
-    moneyTotalEl.textContent = "Chip Value: $"+money;
+    moneyTotalEl.textContent = "Chips: $"+money;
     moneyBlinkerEl.textContent = "-$100";
     moneyBlinkerEl.style.color = "rgb(119, 13, 13)";
 };
@@ -301,7 +301,7 @@ function render () {
     // update view with current values for: playerHand, dealerHand, playerTotal, dealerTotal
     playerTotalEl.textContent = "Player Hand: " + playerTotal;
     dealerTotalEl.textContent = "Dealer Hand: " + dealerTotal;
-    moneyTotalEl.textContent = "Chip Value: $"+money;
+    moneyTotalEl.textContent = "Chips: $"+money;
     moneyBlinkerEl.textContent = ""
     renderDeckInContainer(playerHand, playerHandEl);
     renderDeckInContainer(dealerHand, dealerHandEl);
@@ -320,19 +320,15 @@ function render () {
         winLoseEl.textContent = "It's a Draw";
         endBtns();
     } else if (winner === 'player(blackjack)') {
-        winLoseEl.textContent = "You Have Blackjack!";
+        winLoseEl.textContent = "Blackjack!";
         endBtns();
         moneyAdd();
-    } else if (winner === 'computer(blackjack)'){
-        winLoseEl.textContent = "Dealer has Blackjack!";
-        endBtns();
-        moneySubtract();
     } else if (winner === 'player- dealer busts'){
-        winLoseEl.textContent = "Dealer Busts - You Win!";
+        winLoseEl.textContent = "Dealer Busts";
         endBtns();
         moneyAdd()
     } else if (winner === 'computer- player busts'){
-        winLoseEl.textContent = "You're Busted - Dealer Wins!";
+        winLoseEl.textContent = "You're Busted!";
         endBtns();
         moneySubtract();
     } else {
