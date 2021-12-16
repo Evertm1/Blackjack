@@ -48,6 +48,10 @@ const playAgainBtn = document.querySelector('#playagain').addEventListener("clic
 init();
 
 function init() {
+    //prior tot building master deck, recalculate totals to 0
+    //in order to prevent ace reduction if it occured in previous hand
+    playerTotal = 0;
+    dealerTotal = 0;
     //initialize master deck
     buildMasterDeck();
     //shuffle deck - reassign tempDeck(which is a clone of the master deck) to shuffled deck
@@ -55,9 +59,11 @@ function init() {
     console.log(tempDeck);
     //enables buttons
     startBtns();
+    
     //add first two cards of tempDeck to playerHand
     playerHand = [];
     dealerHand = [];
+
     winner = null;
     playerHand.push(tempDeck[0], tempDeck[1]);
     console.log(playerHand);
@@ -305,6 +311,9 @@ function render () {
     moneyBlinkerEl.textContent = ""
     renderDeckInContainer(playerHand, playerHandEl);
     renderDeckInContainer(dealerHand, dealerHandEl);
+    //testing if this fixes bug
+
+
     // if winner != null, update view with end of game message, activate playAgainBtn, deactivate hitMeBtn and stayBtn
     if (winner === 'player') {
         winLoseEl.textContent = "You Win!";
@@ -317,7 +326,8 @@ function render () {
         moneySubtract();
 
     } else if (winner === 'tie') {
-        winLoseEl.textContent = "It's a Draw";
+        let message = "Both Have " + playerTotal 
+        winLoseEl.textContent = message;
         endBtns();
     } else if (winner === 'player(blackjack)') {
         winLoseEl.textContent = "Blackjack!";
