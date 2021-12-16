@@ -51,7 +51,7 @@ function init() {
     tempDeck = getNewShuffledDeck();
     console.log(tempDeck);
     //enables buttons
-    StartBtns();
+    startBtns();
     //add first two cards of tempDeck to playerHand
     playerHand = [];
     dealerHand = [];
@@ -73,7 +73,7 @@ function init() {
         winner = 'player(blackjack)';
     } else if (playerTotal != 21 && dealerTotal === 21){
         winner = 'computer(blackjack)';
-    } else if (playerTotal ===21 && dealerTotal === 21){
+    } else if (playerTotal === 21 && dealerTotal === 21){
         winner = 'tie';
     };
     render();
@@ -173,13 +173,13 @@ function dealerHandCalculator() {
 
     
 // Function that disables buttons
-function EndBtns(){ 
+function endBtns(){ 
     document.getElementById('hitme').disabled = true;
     document.getElementById('stay').disabled = true;
     document.getElementById('playagain').removeAttribute('disabled'); 
 };
 //Function that enables buttons (upon initialization)
-function StartBtns(){
+function startBtns(){
     document.getElementById('hitme').removeAttribute('disabled');
     document.getElementById('stay').removeAttribute('disabled'); 
     document.getElementById('playagain').disabled = true
@@ -229,7 +229,7 @@ function hitMe() {
     };
     
     if (playerTotal > 21){
-        winner = 'computer'
+        winner = 'computer- player busts'
     };
     //ELSE if playerTotal > and at least one ace is present, begin reducing ace value to 1 until playerTotal < 21
     //if winner value is null, call dealerTurn()
@@ -266,14 +266,14 @@ function dealerTurn () {
                 dealerTotal = dealerHandCalculator();
                 console.log(dealerTotal, card.value);
             }
- //           if (playerTotal <= 21) return;
+ 
         });
         console.log(dealerTotal);
     //IF dealerTotal > 21 update winner to 'player' after reducing ace values 
 
     };
     if (dealerTotal > 21) {
-        winner = 'player'
+        winner = 'player- dealer busts'
     };
     //ELSE IF dealer total >21 AND at least one ace is present, begin reducing ace values to 1 until toal is <21, then stop reducing ace values
         // IF all aces values are reduced to 1, AND  dealer total > 21, update winner to 'player'
@@ -288,22 +288,28 @@ function render () {
     renderDeckInContainer(dealerHand, dealerHandEl);
     // if winner != null, update view with end of game message, activate playAgainBtn, deactivate hitMeBtn and stayBtn
     if (winner === 'player') {
-        winLoseEl.textContent = "YOU WIN!";
-        EndBtns();
+        winLoseEl.textContent = "You Win!";
+        endBtns();
  
     } else if (winner === 'computer') {
-        winLoseEl.textContent = "YOU LOSE";
-        EndBtns();
+        winLoseEl.textContent = "Dealer Wins!";
+        endBtns();
 
     } else if (winner === 'tie') {
-        winLoseEl.textContent = "It's a draw";
-        EndBtns();
+        winLoseEl.textContent = "It's a Draw";
+        endBtns();
     } else if (winner === 'player(blackjack)') {
         winLoseEl.textContent = "You Have Blackjack!";
-        EndBtns();
+        endBtns();
     } else if (winner === 'computer(blackjack)'){
         winLoseEl.textContent = "Dealer has Blackjack!";
-        EndBtns();
+        endBtns();
+    } else if (winner === 'player- dealer busts'){
+        winLoseEl.textContent = "Dealer Busts - You Win!";
+        endBtns();
+    } else if (winner === 'computer- player busts'){
+        winLoseEl.textContent = "You're Busted - Dealer Wins!";
+        endBtns();
     } else {
         winLoseEl.textContent = " "
     };

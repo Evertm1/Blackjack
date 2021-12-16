@@ -9,12 +9,12 @@ body {
     
     /* mobile first - single column */
     grid-template-columns: 200px 400px 200px;
-    grid-template-rows: 70px 30px 250px 30px 300px 150px;
+    grid-template-rows: 55px 30px 250px 30px 300px 150px;
     grid-template-areas: 
-    "hdr hdr hdr"
+    "hdr winlose winlose"
     "blank dealerstays dealertotal"
     "buttons dealerhand dealerhand"
-    "playertotal winlose winlose"
+    "playertotal playertotal playertotal"
     "playerhand playerhand playerhand"
     "ftr ftr ftr"
   }
@@ -22,7 +22,7 @@ body {
 #title {
     grid-area: hdr;
     background-color:rgb(52, 131, 45);
-    font-size: 60px;
+    font-size: 47px;
     margin: 0px;
     font-family: 'Prompt', sans-serif;
   }
@@ -74,6 +74,7 @@ footer {
     text-align: center;
     font-size: 35px;
     color: rgb(255, 242, 0);
+    font-family: 'Prompt', sans-serif;
   }
 
 #dealerstays {
