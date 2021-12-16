@@ -51,7 +51,7 @@ function init() {
     tempDeck = getNewShuffledDeck();
     console.log(tempDeck);
     //enables buttons
-    enableBtn();
+    StartBtns();
     //add first two cards of tempDeck to playerHand
     playerHand = [];
     dealerHand = [];
@@ -69,6 +69,13 @@ function init() {
     dealerTotal = dealerHandCalculator();
     //deactivate playAgainBtn
     //render starting hands and totals
+    if (playerTotal === 21 && dealerTotal != 21){
+        winner = 'player(blackjack)';
+    } else if (playerTotal != 21 && dealerTotal === 21){
+        winner = 'computer(blackjack)';
+    } else if (playerTotal ===21 && dealerTotal === 21){
+        winner = 'tie';
+    };
     render();
 }
 
@@ -166,15 +173,16 @@ function dealerHandCalculator() {
 
     
 // Function that disables buttons
-function disableBtn(){ 
+function EndBtns(){ 
     document.getElementById('hitme').disabled = true;
-    document.getElementById('stay').disabled = true; 
+    document.getElementById('stay').disabled = true;
+    document.getElementById('playagain').removeAttribute('disabled'); 
 };
 //Function that enables buttons (upon initialization)
-function enableBtn(){
+function StartBtns(){
     document.getElementById('hitme').removeAttribute('disabled');
     document.getElementById('stay').removeAttribute('disabled'); 
-
+    document.getElementById('playagain').disabled = true
 };
 
 
@@ -249,7 +257,21 @@ function dealerTurn () {
     };
     //calculate dealerTotal
     dealerTotal = dealerHandCalculator();
-    //IF dealerTotal > 21 AND no aces are present in dealer hand, update winner to 'player'
+
+    while (dealerTotal > 21 && dealerHand.some(card => card.value === 11)){
+    
+        dealerHand.forEach(function(card){
+            if (card.value === 11){
+                card.value = 1;
+                dealerTotal = dealerHandCalculator();
+                console.log(dealerTotal, card.value);
+            }
+ //           if (playerTotal <= 21) return;
+        });
+        console.log(dealerTotal);
+    //IF dealerTotal > 21 update winner to 'player' after reducing ace values 
+
+    };
     if (dealerTotal > 21) {
         winner = 'player'
     };
@@ -267,15 +289,21 @@ function render () {
     // if winner != null, update view with end of game message, activate playAgainBtn, deactivate hitMeBtn and stayBtn
     if (winner === 'player') {
         winLoseEl.textContent = "YOU WIN!";
-        disableBtn();
+        EndBtns();
  
     } else if (winner === 'computer') {
         winLoseEl.textContent = "YOU LOSE";
-        disableBtn();
+        EndBtns();
 
     } else if (winner === 'tie') {
-        winLoseEl.textContent = "It's a draw"
-        disableBtn();
+        winLoseEl.textContent = "It's a draw";
+        EndBtns();
+    } else if (winner === 'player(blackjack)') {
+        winLoseEl.textContent = "You Have Blackjack!";
+        EndBtns();
+    } else if (winner === 'computer(blackjack)'){
+        winLoseEl.textContent = "Dealer has Blackjack!";
+        EndBtns();
     } else {
         winLoseEl.textContent = " "
     };
