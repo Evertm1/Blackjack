@@ -64,6 +64,16 @@ function init() {
     playerHand = [];
     dealerHand = [];
 
+    //bug fix attempt:
+    if (playerHand.some(card => card.value === 1)){
+        card.value === 11
+    };
+    if (dealerHand.some(card => card.value === 1)){
+        card.value === 11
+    };
+
+
+
     winner = null;
     playerHand.push(tempDeck[0], tempDeck[1]);
     console.log(playerHand);
