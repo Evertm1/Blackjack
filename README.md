@@ -2,7 +2,7 @@
 
 ### Description
 
-This game puts you right in the action at your favorite Blackjack table. You'll start with $1000 in chips, but whether you double these earnings or lose it all will depend on your ability to beat the dealer. Try to get you hand total as close to 21 as possible, but be careful -- if your total exceeds 21, you're busted! Card point totals are as follows:
+This game puts you right in the action at your favorite Blackjack table. You'll start with $1000 in chips, but whether you double these earnings or lose it all will depend on your ability to beat the dealer.
 
 * 2 - 2 points
 * 3 - 3 points
@@ -19,13 +19,11 @@ This game puts you right in the action at your favorite Blackjack table. You'll 
 * A - 11 points if your hand total is less than 21, otherwise these will count as 1 point so you don't bust
 
 
-At the start of each hand, both the player and the dealer will receive 2 cards. It's then your choice if you want to hit (add a card to your hand) or stay.
+At the start of each hand, both the player and the dealer will receive 2 cards. It's then your choice if you want to hit (add a card to your hand) or stay. Try to accumulate as many points as possible without exceeding 21.
 
 Once you are satisfied with your hand, press the stay button and it will be the dealers turn. The dealer will always stay at 17 or fewer points.
 
-Once the dealer is done with his turn, whoever has the higher amount of points in their hand wins (as long as neither has more than 21). What happens in a tie? You will neither win or lose any money.
-
-Oh almost forgot, after each hand you stand to either gain or lose $100-- so play your cards wisely, and good luck!
+After each hand you stand to either gain or lose $100.
 
 
 ### Screenshots 
